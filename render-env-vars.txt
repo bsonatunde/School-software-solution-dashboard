@@ -1,0 +1,21 @@
+# Environment Variables for Render Deployment
+# Copy these exact values to your Render dashboard
+
+# MongoDB Configuration (Your Cluster)
+MONGODB_URI=mongodb+srv://onatundesamuel:S9DJjht2HItwX1zm@cluster0.e9ngpld.mongodb.net/pacey-school-db?retryWrites=true&w=majority&appName=Cluster0
+DATABASE_NAME=pacey-school-db
+
+# Application Configuration
+NODE_ENV=production
+NEXT_PUBLIC_APP_URL=https://pacey-school-solution.onrender.com
+JWT_SECRET=pacey-school-jwt-secret-2025-super-secure-key-S9DJjht2HItwX1zm-production
+
+# Optional: Email Configuration (if you want to enable email features)
+# SMTP_HOST=smtp.gmail.com
+# SMTP_PORT=587
+# SMTP_USER=your-email@gmail.com
+# SMTP_PASS=your-app-password
+# FROM_EMAIL=noreply@paceyschool.com
+
+# Render Configuration
+PORT=10000

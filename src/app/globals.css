@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Ensure smooth transitions for dark mode */
+html, body {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Base styles for better dark mode support */
+html {
+  background-color: #ffffff;
+  color: #111827;
+}
+
+html.dark {
+  background-color: #111827;
+  color: #f9fafb;
+}

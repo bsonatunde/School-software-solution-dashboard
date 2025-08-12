@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: pacey-school-solution
+    env: node
+    plan: free
+    buildCommand: "./render-build.sh"
+    startCommand: "npm start"
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        value: mongodb+srv://onatundesamuel:S9DJjht2HItwX1zm@cluster0.e9ngpld.mongodb.net/pacey-school-db?retryWrites=true&w=majority&appName=Cluster0
+      - key: DATABASE_NAME
+        value: pacey-school-db
+      - key: NEXT_PUBLIC_APP_URL
+        sync: false
+      - key: JWT_SECRET
+        value: pacey-school-jwt-secret-2025-super-secure-key-S9DJjht2HItwX1zm-production
+      - key: PORT
+        value: "10000"
+    autoDeploy: true
+    rootDir: .
+    buildFilter:
+      paths:
+        - "src/**"
+        - "public/**"
+        - "package*.json"
+        - "next.config.*"
+        - "tailwind.config.*"
+        - "postcss.config.js"
+        - "tsconfig.json"
