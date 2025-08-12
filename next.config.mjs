@@ -9,11 +9,28 @@ const nextConfig = {
   // Disable source maps in production for smaller builds
   productionBrowserSourceMaps: false,
   
-  // Enable experimental features
+  // Enable strict mode for better module resolution
+  swcMinify: true,
+  
+  // Experimental features for better module resolution
   experimental: {
     serverActions: {
       allowedOrigins: ['localhost:3001', '*.render.com']
-    }
+    },
+    optimizePackageImports: ['lucide-react']
+  },
+  
+  // Webpack configuration for better module resolution
+  webpack: (config, { isServer }) => {
+    // Fix for module resolution issues in production
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      net: false,
+      tls: false,
+    };
+    
+    return config;
   },
   
   // Headers for security
