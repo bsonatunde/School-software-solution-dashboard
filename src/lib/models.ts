@@ -23,6 +23,7 @@ const StudentSchema = new Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   email: { type: String },
+  password: { type: String }, // Add password field for student authentication
   phoneNumber: { type: String },
   dateOfBirth: { type: Date, required: true },
   gender: { type: String, enum: ['Male', 'Female'], required: true },

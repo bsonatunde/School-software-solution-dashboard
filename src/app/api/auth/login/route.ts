@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getDatabase } from '@/lib/mongodb';
+import { connectDB, User, Student } from '@/lib/models';
 import bcrypt from 'bcryptjs';
-import { LoginRequest, ApiResponse, User } from '../../../../types';
+import { LoginRequest, ApiResponse, User as UserType } from '../../../../types';
 
 export async function POST(request: NextRequest) {
   try {
@@ -19,65 +19,65 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
 
-    // Connect to database
-    const db = await getDatabase();
-    console.log('📊 Connected to database, checking credentials...');
+    // Connect to database using Mongoose
+    await connectDB();
+    console.log('📊 Connected to MongoDB via Mongoose, checking credentials...');
 
-    // First, try to find user in the users collection
-    const user = await db.collection('users').findOne({ 
-      email: email.toLowerCase().trim(),
-      isActive: true 
-    });
+    // First, try to find user in the User model
+    const user = await User.findOne({
+        email: email.toLowerCase().trim(),
+        isActive: true
+    }).lean() as any;
 
     if (user && await bcrypt.compare(password, user.password)) {
-      console.log('✅ Database login successful for:', email, 'with role:', user.role);
+      console.log('✅ Mongoose User login successful for:', email, 'with role:', user.role);
       
       // Create response user object
-      const responseUser: User = {
+        const responseUser: UserType = {
         id: user._id.toString(),
         email: user.email,
         password: '', // Never send password back
         firstName: user.firstName,
         lastName: user.lastName,
         role: user.role,
-        profileId: user.studentId || user.teacherId || user.staffId || `${user.role.toLowerCase()}-profile`,
+        profileId: user.profileId,
         isActive: user.isActive,
         createdAt: user.createdAt,
         updatedAt: user.updatedAt || new Date()
       };
 
-      return NextResponse.json<ApiResponse<Omit<User, 'password'>>>({
+      return NextResponse.json<ApiResponse<Omit<UserType, 'password'>>>({
         success: true,
         data: responseUser,
         message: 'Login successful'
       });
     }
 
-    // If not found in users collection, check students collection
-    console.log('🔍 User not found in users collection, checking students...');
+    // If not found in User model, check Student model
+    console.log('🔍 User not found in User model, checking Student...');
     
-    const student = await db.collection('students').findOne({ 
-      email: email.toLowerCase().trim(),
-      status: 'active' 
-    });
+    const student = await Student.findOne({ 
+        email: email.toLowerCase().trim(),
+        status: 'Active' 
+    }).lean() as any;
 
     if (student && student.password && await bcrypt.compare(password, student.password)) {
-      console.log('✅ Student login successful for:', email, 'studentId:', student.studentId);
+      console.log('✅ Student login successful for:', email, 'studentId:', student._id);
       
-      const responseUser: User = {
+      const responseUser: UserType = {
         id: student._id.toString(),
         email: student.email,
         password: '', // Never send password back
         firstName: student.firstName,
         lastName: student.lastName,
         role: 'Student',
-        profileId: student.studentId,
+        profileId: student.admissionNumber,
         isActive: true,
         createdAt: student.createdAt,
         updatedAt: student.updatedAt || new Date()
       };
 
-      return NextResponse.json<ApiResponse<Omit<User, 'password'>>>({
+      return NextResponse.json<ApiResponse<Omit<UserType, 'password'>>>({
         success: true,
         data: responseUser,
         message: 'Student login successful'
@@ -107,7 +107,7 @@ export async function POST(request: NextRequest) {
 
     if (validAccount) {
       console.log('✅ Demo account login successful for:', email, 'with role:', validAccount.role);
-      const mockUser: User = {
+      const mockUser: UserType = {
         id: `${validAccount.role.toLowerCase()}-1`,
         email: validAccount.email,
         password: '', // Never send password
@@ -120,7 +120,7 @@ export async function POST(request: NextRequest) {
         updatedAt: new Date()
       };
 
-      return NextResponse.json<ApiResponse<Omit<User, 'password'>>>({
+      return NextResponse.json<ApiResponse<Omit<UserType, 'password'>>>({
         success: true,
         data: mockUser,
         message: 'Login successful (demo account)'
