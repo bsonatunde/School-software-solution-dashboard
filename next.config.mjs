@@ -9,9 +9,6 @@ const nextConfig = {
   // Disable source maps in production for smaller builds
   productionBrowserSourceMaps: false,
   
-  // Enable strict mode for better module resolution
-  swcMinify: true,
-  
   // Experimental features for better module resolution
   experimental: {
     serverActions: {
