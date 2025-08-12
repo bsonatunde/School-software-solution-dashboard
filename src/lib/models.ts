@@ -19,7 +19,7 @@ const connectDB = async () => {
 
 // Student Schema
 const StudentSchema = new Schema({
-  admissionNumber: { type: String, required: true, unique: true },
+  admissionNumber: { type: String, required: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   email: { type: String },
@@ -43,10 +43,10 @@ const StudentSchema = new Schema({
 
 // Staff Schema (Extended from Teacher)
 const StaffSchema = new Schema({
-  employeeId: { type: String, required: true, unique: true },
+  employeeId: { type: String, required: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
+  email: { type: String, required: true },
   phoneNumber: { type: String, required: true },
   dateOfBirth: { type: Date, required: true },
   gender: { type: String, enum: ['Male', 'Female'], required: true },
@@ -115,7 +115,7 @@ const ClassSchema = new Schema({
 // Subject Schema
 const SubjectSchema = new Schema({
   name: { type: String, required: true },
-  code: { type: String, required: true, unique: true },
+  code: { type: String, required: true },
   description: { type: String },
   category: { type: String, enum: ['Core', 'Elective', 'Vocational'], required: true },
   creditUnits: { type: Number, required: true },
@@ -213,7 +213,7 @@ const PayrollSchema = new Schema({
 
 // User Schema
 const UserSchema = new Schema({
-  email: { type: String, required: true, unique: true },
+  email: { type: String, required: true },
   password: { type: String, required: true },
   role: { type: String, enum: ['Admin', 'Teacher', 'Parent', 'Student'], required: true },
   firstName: { type: String, required: true },
@@ -277,7 +277,7 @@ const TimetableSchema = new Schema({
 
 // Academic Year Schema
 const AcademicYearSchema = new Schema({
-  year: { type: String, required: true, unique: true },
+  year: { type: String, required: true },
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
   currentTerm: { type: String, enum: ['First', 'Second', 'Third'], required: true },
@@ -299,12 +299,12 @@ const AcademicYearSchema = new Schema({
 }, { timestamps: true });
 
 // Create indexes for better performance
-StudentSchema.index({ admissionNumber: 1 });
+StudentSchema.index({ admissionNumber: 1 }, { unique: true });
 StudentSchema.index({ classId: 1 });
 StudentSchema.index({ status: 1 });
 
-StaffSchema.index({ employeeId: 1 });
-StaffSchema.index({ email: 1 });
+StaffSchema.index({ employeeId: 1 }, { unique: true });
+StaffSchema.index({ email: 1 }, { unique: true });
 StaffSchema.index({ department: 1 });
 StaffSchema.index({ status: 1 });
 
@@ -320,7 +320,11 @@ FeeSchema.index({ status: 1 });
 PayrollSchema.index({ employeeId: 1, month: 1, year: 1 });
 PayrollSchema.index({ status: 1 });
 
-UserSchema.index({ email: 1 });
+UserSchema.index({ email: 1 }, { unique: true });
+
+SubjectSchema.index({ code: 1 }, { unique: true });
+
+AcademicYearSchema.index({ year: 1 }, { unique: true });
 
 // Export models
 export const Student = models.Student || model('Student', StudentSchema);
