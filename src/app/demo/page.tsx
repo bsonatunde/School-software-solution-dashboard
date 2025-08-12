@@ -238,8 +238,23 @@ export default function DemoPage() {
               <School className="h-8 w-8" />
               <span className="text-xl font-bold">Pacey School Solution</span>
             </div>
-            <p className="text-gray-400">
+            <p className="text-gray-400 mb-6">
               Empowering Nigerian schools with modern management technology
+            </p>
+            <div className="mb-4">
+              <p className="text-blue-400 font-semibold mb-2">Need Help?</p>
+              <a 
+                href="mailto:onatunde.samuel@gmail.com" 
+                className="text-blue-300 hover:text-blue-200 transition-colors text-lg"
+              >
+                📧 onatunde.samuel@gmail.com
+              </a>
+            </div>
+            <p className="text-gray-500 mt-4">
+              © 2025 Pacey School Solution. All rights reserved.
+            </p>
+            <p className="text-gray-400 mt-2 text-sm">
+              Designed by bsonat +2348138873454
             </p>
           </div>
         </div>

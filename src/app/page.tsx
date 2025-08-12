@@ -226,6 +226,15 @@ export default function Home() {
             <p className="text-gray-400 mb-6">
               Empowering Nigerian schools with modern technology
             </p>
+            <div className="mb-6">
+              <p className="text-blue-400 font-semibold mb-2">Need Help?</p>
+              <a 
+                href="mailto:onatunde.samuel@gmail.com" 
+                className="text-blue-300 hover:text-blue-200 transition-colors text-lg"
+              >
+                📧 onatunde.samuel@gmail.com
+              </a>
+            </div>
             <div className="flex justify-center space-x-6">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
               <a href="#" className="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
@@ -233,6 +242,9 @@ export default function Home() {
             </div>
             <p className="text-gray-500 mt-6">
               © 2025 Pacey School Solution. All rights reserved.
+            </p>
+            <p className="text-gray-400 mt-2 text-sm">
+              Designed by bsonat +2348138873454
             </p>
           </div>
         </div>

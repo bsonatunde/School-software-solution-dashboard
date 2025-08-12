@@ -292,9 +292,13 @@ export default function LoginPage() {
 
             <p className="text-xs text-gray-500">
               Need help? Contact{' '}
-              <a href="mailto:support@paceyschool.com" className="text-blue-600 hover:text-blue-800">
-                support@paceyschool.com
+              <a href="mailto:onatunde.samuel@gmail.com" className="text-blue-600 hover:text-blue-800">
+                onatunde.samuel@gmail.com
               </a>
+            </p>
+            
+            <p className="text-xs text-gray-400 mt-2 text-center">
+              Pacey School Solution 2025 designed by bsonat +2348138873454
             </p>
           </div>
         </div>
