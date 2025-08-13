@@ -153,9 +153,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🆘 Support
 
 - **Documentation**: [Full Documentation](docs/)
-- **Issues**: [GitHub Issues](https://github.com/your-username/pacey-school-solution/issues)
-- **Email**: support@paceyschoolsolution.com
-- **WhatsApp**: +234-XXX-XXX-XXXX
+- **Issues**: [GitHub Issues](https://github.com/bsonatunde/School-software-solution-dashboard/)
+- **Email**: onatunde.samuel@gmail.com
+- **WhatsApp**: +2348138873454 - +2348069311708
 
 ## 🏆 Why Choose Pacey School Solution?
 
